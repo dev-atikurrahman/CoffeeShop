@@ -1,0 +1,14 @@
+package com.atik.coffeeshop.features.auth.presentation.register
+
+data class RegistrationFormState(
+    val name: String = "",
+    val nameError: String? = null,
+    val email: String = "",
+    val emailError: String? = null,
+    val password: String = "",
+    val passwordError: String? = null,
+    val repeatedPassword: String = "",
+    val repeatedPasswordError: String? = null,
+    val acceptedTerms: Boolean = false,
+    val termsError: String? = null
+)
