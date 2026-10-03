@@ -134,7 +134,7 @@ fun RegisterScreen(
 
                 VerticalSpacer(size = 24.dp)
                 AuthButton(
-                    text = if (isLoading) "..." else "Login",
+                    text = if (isLoading) "..." else stringResource(R.string.register),
                     enabled = !isLoading,
                     onClick = viewModel::onRegisterClick,
                     containerColor = colorResource(R.color.green),

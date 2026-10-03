@@ -14,6 +14,7 @@ class CoffeeShopApplication : Application() {
             androidContext(this@CoffeeShopApplication)
             modules(
                 preferencesModule,
+                networkModule,
                 appModule
             )
         }
