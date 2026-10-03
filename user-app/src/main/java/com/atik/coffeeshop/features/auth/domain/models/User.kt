@@ -1,19 +1,23 @@
 package com.atik.coffeeshop.features.auth.domain.models
 
-// registration এর সময় শুধু name, email, password দিয়ে হবে, বাকি গুলো user পরে profile থেকে update করে নিতে পারবে।
 data class User(
-    val id: String,
+    val id: Int,
     val name: String,
     val email: String,
-    val password: String,
-    val profileImageUrl: String,
-    val phoneNumber: String,
-    val gender: Gender,
-    val hobbies: List<String>,
-    val dateOfBirth: String,
-    val bio: String,
-    val address: Address,
+    val role: String = "user",
+    val profile: UserProfile = UserProfile()
 )
+
+data class UserProfile(
+    val profileImageUrl: String? = null,
+    val phoneNumber: String? = null,
+    val gender: Gender = Gender.UNKNOWN,
+    val hobbies: List<String> = emptyList(),
+    val dateOfBirth: String? = null,
+    val bio: String? = null,
+    val address: Address? = null
+)
+
 enum class Gender {
     MALE, FEMALE, OTHER, UNKNOWN
 }
