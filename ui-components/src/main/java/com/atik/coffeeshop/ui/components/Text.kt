@@ -101,7 +101,7 @@ private object TextStyles {
     // Smallest text — password strength meter, field helper text
     val helper = TextStyle(
         fontSize = 12.sp,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.Normal,
         fontFamily = Poppins
     )
 }
@@ -324,7 +324,6 @@ fun HintText(
 fun HelperText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
@@ -332,7 +331,6 @@ fun HelperText(
         text = text,
         modifier = modifier,
         style = TextStyles.helper,
-        color = color,
         maxLines = maxLines,
         overflow = overflow
     )

@@ -31,10 +31,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.atik.coffeeshop.features.details.presentation.widget.AddToCartAndPriceSection
 import com.atik.coffeeshop.features.details.presentation.widget.CoffeeSizeSelectorSection
 import com.atik.coffeeshop.features.details.presentation.widget.DetailsImageSection
+import com.atik.coffeeshop.features.details.presentation.widget.DetailsTopBar
 import com.atik.coffeeshop.features.details.presentation.widget.QuantityAndDetailsSection
 import com.atik.coffeeshop.features.home.explore.data.models.ItemsModel
 import com.atik.crashcourse.features.details.presentation.DetailsViewModel
-import com.atik.coffeeshop.features.details.presentation.widget.DetailsTopBar
 
 
 @Composable

@@ -1,13 +1,11 @@
 package com.atik.coffeeshop.shared.data.preferences
 
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.emptyPreferences
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.atik.coffeeshop.shared.domain.repository.UserPreferencesRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -28,7 +26,7 @@ class UserPreferencesImpl(
     }
 
     override val isOnboardingCompleted: Flow<Boolean> =
-        safeData.map { prefs -> prefs[Keys.ONBOARDING_COMPLETED] ?: false}
+        safeData.map { prefs -> prefs[Keys.ONBOARDING_COMPLETED] ?: false }
 
     override suspend fun setOnboardingCompleted(completed: Boolean) {
         dataStore.edit { prefs -> prefs[Keys.ONBOARDING_COMPLETED] = completed }

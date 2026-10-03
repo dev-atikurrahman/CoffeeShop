@@ -1,7 +1,6 @@
 package com.atik.coffeeshop.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -53,10 +52,14 @@ fun AuthField(
 ) {
     var passwordVisibility by remember { mutableStateOf(false) }
     val isPasswordField = endIconMode == EndIconMode.PASSWORD_TOGGLE
+
     val isNotEmpty = value.isNotEmpty()
+
     val brownColor = colorResource(R.color.darkBrown)
     val grayColor = colorResource(R.color.gray)
     val black = colorResource(R.color.black)
+    val error = colorResource(R.color.error)
+
     val clearIcon = Icons.Rounded.Clear
     val visibility = Icons.Rounded.Visibility
     val visibilityOff = Icons.Rounded.VisibilityOff
@@ -79,7 +82,6 @@ fun AuthField(
         label = { HintText(text = label) },
         modifier = modifier
             .fillMaxWidth()
-            .height(64.dp)
             .then(autofillModifier),
         leadingIcon = leadingIcon?.let { icon ->
             {
@@ -91,6 +93,8 @@ fun AuthField(
         },
         keyboardOptions = effectiveKeyboardOptions,
         singleLine = true,
+        isError = isError,
+        supportingText = supportingText,
         shape = shape,
 
         visualTransformation = if (endIconMode == EndIconMode.PASSWORD_TOGGLE && !passwordVisibility) {
@@ -132,10 +136,20 @@ fun AuthField(
             focusedLeadingIconColor = brownColor,
             unfocusedLeadingIconColor = grayColor,
 
+            focusedTrailingIconColor = brownColor,
+            unfocusedTrailingIconColor = grayColor,
+
             focusedLabelColor = brownColor,
             unfocusedLabelColor = if (isNotEmpty) black else grayColor,
 
             cursorColor = brownColor,
-        )
+
+            errorBorderColor = error,
+            errorLabelColor = error,
+            errorLeadingIconColor = error,
+            errorTrailingIconColor = error,
+            errorCursorColor = error,
+
+            )
     )
 }

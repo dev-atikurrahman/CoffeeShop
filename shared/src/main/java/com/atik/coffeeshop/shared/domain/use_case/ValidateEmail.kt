@@ -1,21 +1,28 @@
 package com.atik.coffeeshop.shared.domain.use_case
 
-import android.util.Patterns
-
 class ValidateEmail {
+
     fun execute(email: String): ValidationResult {
-        if (email.isBlank()) {
+
+        val trimmedEmail = email.trim()
+
+        if (trimmedEmail.isBlank()) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "The email can't be blank"
+                errorMessage = "Email can't be blank"
             )
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+
+        val emailRegex =
+            Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$")
+
+        if (!emailRegex.matches(trimmedEmail)) {
             return ValidationResult(
                 successful = false,
-                errorMessage = "That's not a valid email"
+                errorMessage = "Enter a valid email address"
             )
         }
+
         return ValidationResult(
             successful = true
         )

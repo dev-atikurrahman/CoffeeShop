@@ -1,22 +1,51 @@
 package com.atik.coffeeshop.shared.domain.use_case
 
-class ValidatePassword {
+class ValidateRegistrationPassword {
 
     fun execute(password: String): ValidationResult {
+
+        if (password.isBlank()) {
+            return ValidationResult(
+                false,
+                "Password can't be blank"
+            )
+        }
+
         if (password.length < 8) {
             return ValidationResult(
-                successful = false,
-                errorMessage = "The password needs to consist of at least 8 characters"
+                false,
+                "Must be at least 8 characters"
             )
         }
-        val containsLettersAndDigits = password.any { it.isDigit() } &&
-                password.any { it.isLetter() }
-        if (!containsLettersAndDigits) {
+
+        if (password.none { it.isUpperCase() }) {
             return ValidationResult(
-                successful = false,
-                errorMessage = "The password needs to contain at least one letter and digit"
+                false,
+                "Must contain at least 1 uppercase letter"
             )
         }
+
+        if (password.none { it.isLowerCase() }) {
+            return ValidationResult(
+                false,
+                "Must contain at least 1 lowercase letter"
+            )
+        }
+
+        if (password.none { it.isDigit() }) {
+            return ValidationResult(
+                false,
+                "Must contain at least 1 number"
+            )
+        }
+
+        if (password.none { !it.isLetterOrDigit() }) {
+            return ValidationResult(
+                false,
+                "Must contain at least 1 special character"
+            )
+        }
+
         return ValidationResult(
             successful = true
         )

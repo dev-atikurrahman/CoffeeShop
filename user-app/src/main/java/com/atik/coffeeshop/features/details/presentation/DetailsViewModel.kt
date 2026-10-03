@@ -18,5 +18,4 @@ class DetailsViewModel : ViewModel() {
     }
 
 
-
 }

@@ -53,6 +53,7 @@ dependencies {
 
     // Networking — Retrofit/PHP API call করার আসল জায়গা এটাই
     implementation(libs.retrofit.core)
+    implementation(libs.gson.converter)
     implementation(libs.retrofit.kotlinx.serialization.converter)
     implementation(libs.okhttp.core)
     implementation(libs.okhttp.logging.interceptor)

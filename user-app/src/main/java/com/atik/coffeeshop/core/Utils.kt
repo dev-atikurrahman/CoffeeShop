@@ -14,13 +14,19 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavBackStackEntry
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+
 
 val sharedBoundsTransform = BoundsTransform { _, _ ->
     tween(
-        durationMillis = 600,
-        easing = FastOutSlowInEasing
+        durationMillis = 600, easing = FastOutSlowInEasing
     )
 }
 
@@ -38,6 +44,7 @@ val defaultExitTransition: AnimatedContentTransitionScope<NavBackStackEntry>.() 
 fun HorizontalSpacer(size: Dp) {
     Spacer(modifier = Modifier.width(size))
 }
+
 @Composable
 fun VerticalSpacer(size: Dp) {
     Spacer(modifier = Modifier.height(size))

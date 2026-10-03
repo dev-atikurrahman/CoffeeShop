@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,13 +19,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.atik.coffeeshop.R
 import com.atik.coffeeshop.ui.components.CaptionText
 import com.atik.coffeeshop.ui.components.OnboardingButton
 import com.atik.coffeeshop.ui.components.OnboardingHeading
-import com.atik.coffeeshop.ui.theme.PreviewHelper
 
 @Composable
 fun OnboardingScreen(
@@ -80,10 +77,4 @@ fun OnboardingScreen(
             )
         }
     }
-}
-
-@PreviewLightDark
-@Composable
-private fun OnboardingPreview() = PreviewHelper {
-    OnboardingScreen {}
 }

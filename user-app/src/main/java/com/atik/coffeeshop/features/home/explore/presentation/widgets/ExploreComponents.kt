@@ -177,9 +177,7 @@ fun SearchBarSection() {
 
 @Composable
 fun CategorySection(categories: List<Category>) {
-    Column(
-
-    ) {
+    Column {
         TitleText(
             text = "Category",
             color = colorResource(R.color.black)

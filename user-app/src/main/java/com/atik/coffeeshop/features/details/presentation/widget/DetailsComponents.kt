@@ -31,7 +31,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material.icons.rounded.StarRate
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -63,7 +62,6 @@ import com.atik.coffeeshop.core.sharedBoundsTransform
 import com.atik.coffeeshop.features.home.explore.data.models.ItemsModel
 import com.atik.coffeeshop.ui.components.AppLoadingIndicator
 import com.atik.coffeeshop.ui.components.AuthButton
-import com.atik.coffeeshop.ui.components.BodyText
 import com.atik.coffeeshop.ui.components.CaptionText
 import com.atik.coffeeshop.ui.components.PriceText
 import com.atik.coffeeshop.ui.components.TitleText
@@ -147,7 +145,7 @@ enum class CoffeeSize { Small, Medium, Large }
 fun CoffeeSizeSelectorSection(
     selectedSize: CoffeeSize, onSizeSelected: (CoffeeSize) -> Unit
 ) {
-    TitleText(text = "Coffee Size",color = colorResource(R.color.black))
+    TitleText(text = "Coffee Size", color = colorResource(R.color.black))
     Spacer(modifier = Modifier.height(8.dp))
 
     //var selectedSize by remember { mutableStateOf(CoffeeSize.Small) }
