@@ -1,12 +1,8 @@
 package com.atik.coffeeshop.features.auth.domain.repository
 
-import com.atik.coffeeshop.core.APIResponse
-import com.atik.coffeeshop.features.auth.data.models.UserDto
-import com.atik.coffeeshop.features.auth.domain.models.User
-import retrofit2.http.Body
+import com.atik.coffeeshop.features.auth.domain.models.AuthSession
 
 interface AuthRepository {
-    suspend fun register(@Body request: User): Result<APIResponse<User>>
+    suspend fun register(name: String, email: String, password: String): Result<AuthSession>
+    suspend fun login(email: String, password: String): Result<AuthSession>
 }
-
-data class AuthSession(val user: User, val token: String)

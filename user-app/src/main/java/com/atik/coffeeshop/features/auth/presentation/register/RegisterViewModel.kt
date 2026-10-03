@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.atik.coffeeshop.core.ApiException
+import com.atik.coffeeshop.features.auth.domain.repository.AuthRepository
 import com.atik.coffeeshop.shared.data.preferences.UserPreferences
 import com.atik.coffeeshop.shared.domain.use_case.ValidateEmail
 import com.atik.coffeeshop.shared.domain.use_case.ValidateName
@@ -19,6 +21,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
+    private val authRepository: AuthRepository,
     private val userPreferences: UserPreferences,
     private val validateName: ValidateName = ValidateName(),
     private val validateEmail: ValidateEmail = ValidateEmail(),
@@ -39,7 +42,7 @@ class RegisterViewModel(
     val validationEvents = validationEventChannel.receiveAsFlow()
 
     fun onNameChanged(name: String) {
-        state = state.copy(name = name)
+        state = state.copy(name = name, nameError = null, generalError = null)
     }
 
     fun onEmailChanged(email: String) {
@@ -59,6 +62,8 @@ class RegisterViewModel(
     }
 
     fun onRegisterClick() {
+        if (_isLoading.value) return
+
         val nameResult = validateName.execute(state.name)
         val emailResult = validateEmail.execute(state.email)
         val passwordResult = validatePassword.execute(state.password)
@@ -80,22 +85,41 @@ class RegisterViewModel(
             emailError = emailResult.errorMessage,
             passwordError = passwordResult.errorMessage,
             repeatedPasswordError = repeatedPasswordResult.errorMessage,
-            termsError = termsResult.errorMessage
+            termsError = termsResult.errorMessage,
+            generalError = null
         )
 
         if (hasError) return
 
         viewModelScope.launch {
             _isLoading.value = true
+            try {
+                authRepository.register(state.name, state.email, state.password).fold(
+                    onSuccess = { session ->
+                        userPreferences.saveSession(session.token)
+                        validationEventChannel.send(ValidationEvent.Success)
+                    },
+                    onFailure = ::showServerError
+                )
+            } finally {
+                _isLoading.value = false
+            }
 
-            // TODO: real registration API call এখানে বসবে (repository যখন তৈরি হবে)
-            // আপাতত onboarding/session flag persist করা হচ্ছে, LoginViewModel-এর মতোই
-            userPreferences.setOnboardingCompleted(true)
-            userPreferences.setLoggedIn(true)
-
-            _isLoading.value = false
-            validationEventChannel.send(ValidationEvent.Success)
         }
+    }
+
+    private fun showServerError(e: Throwable) {
+        val api = e as? ApiException
+        val fields = api?.fieldErrors.orEmpty()
+        val message = api?.message ?: "Something went wrong"
+        val emailTaken = api?.statusCode == 409
+
+        state = state.copy(
+            nameError = fields["name"]?.firstOrNull(),
+            emailError = fields["email"]?.firstOrNull() ?: message.takeIf { emailTaken },
+            passwordError = fields["password"]?.firstOrNull(),
+            generalError = message.takeIf { fields.isEmpty() && !emailTaken }
+        )
     }
 
 

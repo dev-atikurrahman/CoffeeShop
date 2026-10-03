@@ -7,5 +7,7 @@ interface UserPreferences {
     suspend fun setOnboardingCompleted(completed: Boolean)
     val isLoggedIn: Flow<Boolean>
     suspend fun setLoggedIn(loggedIn: Boolean)
+    val authToken: Flow<String?>
+    suspend fun saveSession(token: String)
     suspend fun clearSession()
 }

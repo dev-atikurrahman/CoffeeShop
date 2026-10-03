@@ -8,8 +8,8 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
-    viewModel { RegisterViewModel(userPreferences = get()) }
-    viewModel { LoginViewModel(userPreferences = get()) }
+    viewModel { RegisterViewModel(authRepository = get(), userPreferences = get()) }
+    viewModel { LoginViewModel(authRepository = get(), userPreferences = get()) }
     viewModel { SplashViewModel(userPreferences = get()) }
     viewModel { SharedViewModel() }
 }

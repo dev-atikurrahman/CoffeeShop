@@ -1,56 +1,86 @@
 package com.atik.coffeeshop.features.auth.data.repositories
 
-import android.util.Log
-import com.atik.coffeeshop.core.APIResponse
+import com.atik.coffeeshop.core.ApiException
 import com.atik.coffeeshop.features.auth.data.api.AuthApiService
-import com.atik.coffeeshop.features.auth.data.models.UserDto
-import com.atik.coffeeshop.features.auth.domain.models.User
+import com.atik.coffeeshop.features.auth.data.models.ApiEnvelope
+import com.atik.coffeeshop.features.auth.data.models.AuthDataDto
+import com.atik.coffeeshop.features.auth.data.models.ErrorBodyDto
+import com.atik.coffeeshop.features.auth.data.models.LoginRequestDto
+import com.atik.coffeeshop.features.auth.data.models.RegisterRequestDto
+import com.atik.coffeeshop.features.auth.domain.models.AuthSession
+import com.atik.coffeeshop.features.auth.domain.models.toDomain
 import com.atik.coffeeshop.features.auth.domain.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import okio.IOException
-import retrofit2.HttpException
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
+import retrofit2.Response
+import java.io.IOException
+import kotlin.coroutines.cancellation.CancellationException
 
 class AuthRepositoryImpl(
-    private val authApi: AuthApiService
+    private val api: AuthApiService,
+    private val json: Json
 ) : AuthRepository {
+
     companion object {
         private const val TAG = "AuthDebug"
     }
 
-    override suspend fun register(
-        request: UserDto
-    ): Result<APIResponse<User>> = withContext(Dispatchers.IO) {
+    override suspend fun register(name: String, email: String, password: String) =
+        safeAuthCall { api.register(RegisterRequestDto(name.trim(), email.trim(), password)) }
+
+
+    override suspend fun login(email: String, password: String) =
+        safeAuthCall { api.login(LoginRequestDto(email.trim(), password)) }
+
+    private suspend fun safeAuthCall(
+        call: suspend () -> Response<ApiEnvelope<AuthDataDto>>
+    ): Result<AuthSession> = withContext(Dispatchers.IO) {
         try {
-            Log.d(TAG, "Registration Start: ${request.email}")
-            val response = authApi.register(request)
-
+            val response = call()
             if (response.isSuccessful) {
-                val body = response.body()
-
-                if (body != null) {
-                    Log.d(TAG, "Registration success: ${body.success}")
-                    Result.success(body)
+                val data = response.body()?.data
+                if (data != null) {
+                    Result.success(AuthSession(data.user.toDomain(), data.token))
                 } else {
-                    Log.d(TAG, "Response body is null!")
-                    Result.failure(Exception("Empty response body"))
+                    Result.failure(ApiException("Empty response from server", response.code()))
                 }
             } else {
-                Log.d(TAG, "HTTP ${response.code()} ${response.message()}")
-                Result.failure(HttpException(response))
+                Result.failure(parseError(response))
             }
-
-        } catch (e: HttpException) {
-            Log.d(TAG, "Http error: ${e.code()}", e)
-            Result.failure(e)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: IOException) {
-            Log.d(TAG, "Network error", e)
-            Result.failure(Exception("Network error. Check your connection."))
+            Result.failure(ApiException("Network error. Check your connection."))
+        } catch (e: SerializationException) {
+            Result.failure(ApiException("Unexpected server response."))
         } catch (e: Exception) {
-            Log.d(TAG, "Unexpected error", e)
-            Result.failure(e)
+            Result.failure(ApiException(e.message ?: "Something went wrong"))
         }
     }
 
 
+    private fun parseError(response: Response<*>): ApiException {
+        val body = runCatching {
+            json.decodeFromString<ErrorBodyDto>(response.errorBody()?.string().orEmpty())
+        }.getOrNull()
+
+        return ApiException(message = body?.message?.takeIf { it.isNotBlank() }
+            ?: "Request failed (${response.code()})",
+            statusCode = response.code(),
+            fieldErrors = body?.errors.orEmpty())
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 package com.atik.coffeeshop.shared.data.preferences
 
+import androidx.compose.ui.input.key.Key
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -37,6 +38,17 @@ class UserPreferencesImpl(
 
     override suspend fun setLoggedIn(loggedIn: Boolean) {
         dataStore.edit { prefs -> prefs[Keys.LOGGED_IN] = loggedIn }
+    }
+
+    override val authToken: Flow<String?> =
+        safeData.map { prefs -> prefs[Keys.AUTH_TOKEN] }
+
+    override suspend fun saveSession(token: String) {
+        dataStore.edit { prefs ->
+            prefs[Keys.AUTH_TOKEN] = token
+            prefs[Keys.LOGGED_IN] = true
+            prefs[Keys.ONBOARDING_COMPLETED] = true
+        }
     }
 
     override suspend fun clearSession() {

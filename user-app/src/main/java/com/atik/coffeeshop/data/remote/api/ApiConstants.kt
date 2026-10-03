@@ -2,7 +2,7 @@ package com.atik.coffeeshop.data.remote.api
 
 object ApiConstants {
     /** --- Base URLs ---*/
-    const val BASE_URL = ""
+    const val BASE_URL = "http://192.168.115.37/coffeeshop_api/public/"
 
     /** --- Network Configurations ---*/
     const val TIMEOUT_CONNECT = 30L
@@ -10,7 +10,8 @@ object ApiConstants {
     const val TIMEOUT_WRITE = 30L
 
     /** --- API Endpoints ---*/
-    const val ENDPOINT_REGISTRATION = "users/auth/register.php"
+    const val ENDPOINT_REGISTER = "api/auth/register"
+    const val ENDPOINT_LOGIN = "api/auth/login"
 
     /** --- Header Keys ---*/
     const val HEADER_AUTHORIZATION = "Authorization"

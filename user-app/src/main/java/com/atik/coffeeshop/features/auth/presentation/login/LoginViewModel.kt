@@ -5,6 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.atik.coffeeshop.core.ApiException
+import com.atik.coffeeshop.features.auth.domain.repository.AuthRepository
 import com.atik.coffeeshop.features.auth.presentation.register.ValidationEvent
 import com.atik.coffeeshop.shared.data.preferences.UserPreferences
 import com.atik.coffeeshop.shared.domain.use_case.ValidateEmail
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
+    private val authRepository: AuthRepository,
     private val userPreferences: UserPreferences,
     private val validateEmail: ValidateEmail = ValidateEmail(),
     private val validatePassword: ValidateLoginPassword = ValidateLoginPassword()
@@ -47,6 +50,8 @@ class LoginViewModel(
     }
 
     fun onLoginClick() {
+        if (_isLoading.value) return
+
         val emailResult = validateEmail.execute(state.email)
         val passwordResult = validatePassword.execute(state.password)
 
@@ -54,20 +59,33 @@ class LoginViewModel(
 
         state = state.copy(
             emailError = emailResult.errorMessage,
-            passwordError = passwordResult.errorMessage
+            passwordError = passwordResult.errorMessage,
+            generalError = null
         )
-
-        if (hasError) return
+        if (!emailResult.successful || !passwordResult.successful) return
 
         viewModelScope.launch {
             _isLoading.value = true
-
-            // TODO: real login API call এখানে বসবে (repository তৈরি হলে)
-            //userPreferences.setOnboardingCompleted(true)
-            //userPreferences.setLoggedIn(true)
-
-            _isLoading.value = false
-            validationEventChannel.send(ValidationEvent.Success)
+            try {
+                authRepository.login(state.email, state.password).fold(
+                    onSuccess = { session ->
+                        userPreferences.saveSession(session.token)
+                        validationEventChannel.send(ValidationEvent.Success)
+                    },
+                    onFailure = { e ->
+                        val api = e as? ApiException
+                        val fields = api?.fieldErrors.orEmpty()
+                        state = state.copy(
+                            emailError = fields["email"]?.firstOrNull(),
+                            passwordError = fields["password"]?.firstOrNull(),
+                            generalError = (api?.message ?: "Something went wrong")
+                                .takeIf { fields.isEmpty() }
+                        )
+                    }
+                )
+            } finally {
+                _isLoading.value = false
+            }
         }
     }
 }

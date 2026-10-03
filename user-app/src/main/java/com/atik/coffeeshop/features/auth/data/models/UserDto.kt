@@ -1,8 +1,5 @@
 package com.atik.coffeeshop.features.auth.data.models
 
-import com.atik.coffeeshop.features.auth.domain.models.Address
-import com.atik.coffeeshop.features.auth.domain.models.Gender
-import com.atik.coffeeshop.features.auth.domain.models.User
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -36,9 +33,9 @@ data class UserDto(
 
 @Serializable
 data class AddressDto(
-    @SerialName("street") val street: String?,
-    @SerialName("city") val city: String?,
-    @SerialName("zip_code") val zipCode: String?
+    @SerialName("street") val street: String? = null,
+    @SerialName("city") val city: String? = null,
+    @SerialName("zip_code") val zipCode: String? = null
 )
 
 @Serializable
@@ -49,5 +46,11 @@ data class ApiEnvelope<T>(
     val success: Boolean,
     val message: String = "",
     val data: T? = null,
+    val errors: Map<String, List<String>>? = null
+)
+
+@Serializable
+data class ErrorBodyDto(
+    val message: String = "",
     val errors: Map<String, List<String>>? = null
 )
