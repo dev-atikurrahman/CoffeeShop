@@ -27,9 +27,10 @@ class SplashViewModel(
 
     init {
         viewModelScope.launch {
+            userPreferences.clearSessionIfNotRemembered()
             combine(
                 userPreferences.isOnboardingCompleted,
-                userPreferences.isLoggedIn
+                userPreferences.isLoggedIn,
             ) { onboardingDone, loggedIn ->
                 when {
                     !onboardingDone -> StartDestination.Onboarding

@@ -38,7 +38,7 @@ class RegisterViewModel(
     var state by mutableStateOf(RegistrationFormState())
         private set
 
-    private val validationEventChannel = Channel<ValidationEvent>()
+    private val validationEventChannel = Channel<ValidationEvent>(Channel.BUFFERED)
     val validationEvents = validationEventChannel.receiveAsFlow()
 
     fun onNameChanged(name: String) {
@@ -99,7 +99,7 @@ class RegisterViewModel(
                         userPreferences.saveSession(session.token)
                         validationEventChannel.send(ValidationEvent.Success)
                     },
-                    onFailure = ::showServerError
+                    onFailure = { e -> handleError(e) }
                 )
             } finally {
                 _isLoading.value = false
@@ -108,7 +108,7 @@ class RegisterViewModel(
         }
     }
 
-    private fun showServerError(e: Throwable) {
+    private suspend fun handleError(e: Throwable) {
         val api = e as? ApiException
         val fields = api?.fieldErrors.orEmpty()
         val message = api?.message ?: "Something went wrong"
@@ -118,13 +118,18 @@ class RegisterViewModel(
             nameError = fields["name"]?.firstOrNull(),
             emailError = fields["email"]?.firstOrNull() ?: message.takeIf { emailTaken },
             passwordError = fields["password"]?.firstOrNull(),
-            generalError = message.takeIf { fields.isEmpty() && !emailTaken }
+            //generalError = message.takeIf { fields.isEmpty() && !emailTaken }
         )
+
+        if (fields.isEmpty() && !emailTaken) {
+            validationEventChannel.send(ValidationEvent.Error(message))
+        }
     }
 
 
 }
 
 sealed class ValidationEvent {
-    object Success : ValidationEvent()
+    data object Success : ValidationEvent()
+    data class Error(val message: String) : ValidationEvent()
 }

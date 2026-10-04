@@ -5,9 +5,9 @@ object ApiConstants {
     const val BASE_URL = "http://192.168.115.37/coffeeshop_api/public/"
 
     /** --- Network Configurations ---*/
-    const val TIMEOUT_CONNECT = 30L
-    const val TIMEOUT_READ = 30L
-    const val TIMEOUT_WRITE = 30L
+    const val TIMEOUT_CONNECT = 10L
+    const val TIMEOUT_READ = 10L
+    const val TIMEOUT_WRITE = 10L
 
     /** --- API Endpoints ---*/
     const val ENDPOINT_REGISTER = "api/auth/register"

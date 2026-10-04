@@ -69,7 +69,7 @@ class LoginViewModel(
             try {
                 authRepository.login(state.email, state.password).fold(
                     onSuccess = { session ->
-                        userPreferences.saveSession(session.token)
+                        userPreferences.saveSession(session.token, rememberMe = state.rememberMe)
                         validationEventChannel.send(ValidationEvent.Success)
                     },
                     onFailure = { e ->
@@ -78,8 +78,9 @@ class LoginViewModel(
                         state = state.copy(
                             emailError = fields["email"]?.firstOrNull(),
                             passwordError = fields["password"]?.firstOrNull(),
-                            generalError = (api?.message ?: "Something went wrong")
-                                .takeIf { fields.isEmpty() }
+                        )
+                        validationEventChannel.send(
+                            ValidationEvent.Error(api?.message ?: "Something went wrong")
                         )
                     }
                 )

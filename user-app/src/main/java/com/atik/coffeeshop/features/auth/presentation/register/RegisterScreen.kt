@@ -6,19 +6,23 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -32,11 +36,13 @@ import com.atik.coffeeshop.features.auth.presentation.components.NameTextField
 import com.atik.coffeeshop.features.auth.presentation.components.PasswordTextField
 import com.atik.coffeeshop.features.auth.presentation.components.TextSection
 import com.atik.coffeeshop.ui.components.AppCheckBox
+import com.atik.coffeeshop.ui.components.AppSnackbarHost
 import com.atik.coffeeshop.ui.components.AuthButton
 import com.atik.coffeeshop.ui.components.ButtonText
 import com.atik.coffeeshop.ui.components.LoadingOverlay
 import com.atik.coffeeshop.ui.theme.authGradientBackground
 import com.atik.coffeeshop.ui.utils.rememberDebouncedOnClick
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -48,12 +54,23 @@ fun RegisterScreen(
     val isLoading by viewModel.isLoading.collectAsStateWithLifecycle()
     val state = viewModel.state
     val scrollState = rememberScrollState()
+    val snackbarHostState = remember { SnackbarHostState() }
+    val focusManager = LocalFocusManager.current
+
+    val submit = {
+        focusManager.clearFocus()
+        viewModel.onRegisterClick()
+    }
 
     LaunchedEffect(Unit) {
         viewModel.validationEvents.collect { event ->
             when (event) {
-                ValidationEvent.Success -> {
-                    onRegisterSuccess()
+                ValidationEvent.Success -> onRegisterSuccess()
+                is ValidationEvent.Error -> {
+                    launch {
+                        snackbarHostState.currentSnackbarData?.dismiss()
+                        snackbarHostState.showSnackbar(event.message)
+                    }
                 }
             }
         }
@@ -65,7 +82,7 @@ fun RegisterScreen(
     ) {
         LoadingOverlay(
             isLoading = isLoading,
-            message = "Loading your coffee shop..."
+            message = stringResource(R.string.loading_message)
         ) {
             Column(
                 modifier = Modifier
@@ -122,33 +139,37 @@ fun RegisterScreen(
                 AppCheckBox(
                     checked = state.acceptedTerms,
                     onCheckedChange = viewModel::onTermsAcceptedChanged,
-                    label = stringResource(R.string.accept_terms)
+                    label = stringResource(R.string.accept_terms),
+                    errorMessage = state.termsError,
+                    modifier = Modifier.fillMaxWidth()
                 )
-                if (state.termsError != null) {
-                    VerticalSpacer(size = 4.dp)
-                    ButtonText(
-                        text = state.termsError,
-                        color = colorResource(R.color.darkBrown)
-                    )
-                }
 
                 VerticalSpacer(size = 24.dp)
                 AuthButton(
                     text = if (isLoading) "..." else stringResource(R.string.register),
                     enabled = !isLoading,
-                    onClick = viewModel::onRegisterClick,
+                    onClick = submit,
                     containerColor = colorResource(R.color.green),
                     contentColor = colorResource(R.color.white)
                 )
 
 
                 VerticalSpacer(size = 24.dp)
-                TextButton(onClick = rememberDebouncedOnClick {
-                    onNavigateToLogin()
+                TextButton(
+                    onClick = rememberDebouncedOnClick { onNavigateToLogin() }
+                ) {
+                    Text(stringResource(R.string.have_account))
                 }
-                ) { Text("একাউন্ট আছে? Login") }
             }
         }
+
+        AppSnackbarHost(
+            hostState = snackbarHostState,
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .windowInsetsPadding(WindowInsets.safeDrawing)
+                .padding(16.dp)
+        )
 
     }
 

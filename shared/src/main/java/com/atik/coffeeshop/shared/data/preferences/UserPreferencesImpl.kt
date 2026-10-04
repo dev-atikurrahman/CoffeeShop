@@ -1,6 +1,5 @@
 package com.atik.coffeeshop.shared.data.preferences
 
-import androidx.compose.ui.input.key.Key
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -19,7 +18,8 @@ class UserPreferencesImpl(
     private object Keys {
         val ONBOARDING_COMPLETED = booleanPreferencesKey("onboarding_completed")
         val LOGGED_IN = booleanPreferencesKey("logged_in")
-        val AUTH_TOKEN = stringPreferencesKey("auth_token") // ready for future real auth
+        val AUTH_TOKEN = stringPreferencesKey("auth_token")
+        val REMEMBER_ME = booleanPreferencesKey("remember_me")
     }
 
     private val safeData: Flow<Preferences> = dataStore.data.catch { exception ->
@@ -43,11 +43,12 @@ class UserPreferencesImpl(
     override val authToken: Flow<String?> =
         safeData.map { prefs -> prefs[Keys.AUTH_TOKEN] }
 
-    override suspend fun saveSession(token: String) {
+    override suspend fun saveSession(token: String, rememberMe: Boolean) {
         dataStore.edit { prefs ->
             prefs[Keys.AUTH_TOKEN] = token
             prefs[Keys.LOGGED_IN] = true
             prefs[Keys.ONBOARDING_COMPLETED] = true
+            prefs[Keys.REMEMBER_ME] = rememberMe
         }
     }
 
@@ -55,6 +56,17 @@ class UserPreferencesImpl(
         dataStore.edit { prefs ->
             prefs.remove(Keys.LOGGED_IN)
             prefs.remove(Keys.AUTH_TOKEN)
+            prefs.remove(Keys.REMEMBER_ME)
+        }
+    }
+
+    override suspend fun clearSessionIfNotRemembered() {
+        dataStore.edit { prefs ->
+            if (prefs[Keys.REMEMBER_ME] != true) {
+                prefs.remove(Keys.LOGGED_IN)
+                prefs.remove(Keys.AUTH_TOKEN)
+                prefs.remove(Keys.REMEMBER_ME)
+            }
         }
     }
 }

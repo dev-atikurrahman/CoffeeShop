@@ -324,6 +324,7 @@ fun HintText(
 fun HelperText(
     text: String,
     modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
@@ -331,6 +332,7 @@ fun HelperText(
         text = text,
         modifier = modifier,
         style = TextStyles.helper,
+        color = color,
         maxLines = maxLines,
         overflow = overflow
     )

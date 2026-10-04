@@ -16,6 +16,9 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.Json
 import retrofit2.Response
 import java.io.IOException
+import java.io.InterruptedIOException
+import java.net.ConnectException
+import java.net.UnknownHostException
 import kotlin.coroutines.cancellation.CancellationException
 
 class AuthRepositoryImpl(
@@ -52,7 +55,14 @@ class AuthRepositoryImpl(
         } catch (e: CancellationException) {
             throw e
         } catch (e: IOException) {
-            Result.failure(ApiException("Network error. Check your connection."))
+            val msg = when (e) {
+                is InterruptedIOException -> "Request timed out. Please try again."
+                is ConnectException, is UnknownHostException ->
+                    "Can't reach the server. Check your connectioin and try again."
+
+                else -> "Network error. Check your connection."
+            }
+            Result.failure(ApiException(msg))
         } catch (e: SerializationException) {
             Result.failure(ApiException("Unexpected server response."))
         } catch (e: Exception) {

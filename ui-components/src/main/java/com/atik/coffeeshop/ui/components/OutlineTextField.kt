@@ -2,6 +2,7 @@ package com.atik.coffeeshop.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Clear
@@ -48,7 +49,8 @@ fun AuthField(
     shape: Shape = roundedShape,
     endIconMode: EndIconMode = EndIconMode.NONE,
     isError: Boolean = false,
-    supportingText: (@Composable () -> Unit)? = null
+    supportingText: (@Composable () -> Unit)? = null,
+    keyboardActions: KeyboardActions = KeyboardActions.Default
 ) {
     var passwordVisibility by remember { mutableStateOf(false) }
     val isPasswordField = endIconMode == EndIconMode.PASSWORD_TOGGLE
@@ -95,6 +97,7 @@ fun AuthField(
         singleLine = true,
         isError = isError,
         supportingText = supportingText,
+        keyboardActions = keyboardActions,
         shape = shape,
 
         visualTransformation = if (endIconMode == EndIconMode.PASSWORD_TOGGLE && !passwordVisibility) {

@@ -27,7 +27,8 @@ val networkModule = module {
             .connectTimeout(ApiConstants.TIMEOUT_CONNECT, TimeUnit.SECONDS)
             .readTimeout(ApiConstants.TIMEOUT_READ, TimeUnit.SECONDS)
             .writeTimeout(ApiConstants.TIMEOUT_WRITE, TimeUnit.SECONDS)
-            // BODY লেভেল দেবেন না, লগে পাসওয়ার্ড দেখা যাবে
+            .callTimeout(20, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(false)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
             .build()
     }
