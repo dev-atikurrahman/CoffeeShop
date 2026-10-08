@@ -59,7 +59,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.atik.coffeeshop.R
 import com.atik.coffeeshop.core.sharedBoundsTransform
-import com.atik.coffeeshop.features.home.explore.data.models.ItemsModel
+import com.atik.coffeeshop.features.explore.data.models.ItemsModel
 import com.atik.coffeeshop.ui.components.AppLoadingIndicator
 import com.atik.coffeeshop.ui.components.AuthButton
 import com.atik.coffeeshop.ui.components.CaptionText

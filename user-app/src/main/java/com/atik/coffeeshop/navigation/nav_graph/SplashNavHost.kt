@@ -31,7 +31,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.atik.coffeeshop.features.auth.presentation.login.LoginViewModel.Companion.AUTH_TAG
-import com.atik.coffeeshop.features.home.explore.presentation.SharedViewModel
+import com.atik.coffeeshop.features.explore.presentation.SharedViewModel
 import com.atik.coffeeshop.features.onboarding.presentation.OnboardingScreen
 import com.atik.coffeeshop.navigation.AUTH_GRAPH_ROUTE
 import com.atik.coffeeshop.navigation.HOME_GRAPH_ROUTE

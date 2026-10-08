@@ -24,7 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.atik.coffeeshop.R
-import com.atik.coffeeshop.features.home.explore.presentation.SharedViewModel
+import com.atik.coffeeshop.features.explore.presentation.SharedViewModel
 import com.atik.coffeeshop.navigation.bottom_bar.BottomNavigationBar
 import com.atik.coffeeshop.navigation.nav_graph.authNavGraph
 import com.atik.coffeeshop.navigation.nav_graph.homeNavGraph

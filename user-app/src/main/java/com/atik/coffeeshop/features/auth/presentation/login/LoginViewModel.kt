@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.atik.coffeeshop.core.ApiException
+import com.atik.coffeeshop.core.network.ApiException
 import com.atik.coffeeshop.features.auth.domain.repository.AuthRepository
 import com.atik.coffeeshop.features.auth.presentation.register.ValidationEvent
 import com.atik.coffeeshop.shared.data.preferences.UserPreferences

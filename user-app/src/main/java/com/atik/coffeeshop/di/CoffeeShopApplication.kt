@@ -1,6 +1,8 @@
 package com.atik.coffeeshop.di
 
 import android.app.Application
+import com.atik.coffeeshop.features.auth.di.authModule
+import com.atik.coffeeshop.features.profile.di.profileModule
 import com.atik.coffeeshop.shared.di.preferencesModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -15,6 +17,8 @@ class CoffeeShopApplication : Application() {
             modules(
                 preferencesModule,
                 networkModule,
+                authModule,
+                profileModule,
                 appModule
             )
         }

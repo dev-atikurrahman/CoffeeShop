@@ -41,16 +41,5 @@ data class AddressDto(
 @Serializable
 data class AuthDataDto(val user: UserDto, val token: String)
 
-@Serializable
-data class ApiEnvelope<T>(
-    val success: Boolean,
-    val message: String = "",
-    val data: T? = null,
-    val errors: Map<String, List<String>>? = null
-)
 
-@Serializable
-data class ErrorBodyDto(
-    val message: String = "",
-    val errors: Map<String, List<String>>? = null
-)
+

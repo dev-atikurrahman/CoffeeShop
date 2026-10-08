@@ -12,8 +12,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.atik.coffeeshop.admin.ui.theme.CoffeeShopTheme
 import com.atik.coffeeshop.shared.TestFile
+import com.atik.coffeeshop.ui.theme.CoffeeShopTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
