@@ -3,7 +3,7 @@
     <color name="splash_background">#FFFFFF</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="error">#FFFF0000</color>
+    <color name="errorColor">#FFFF0000</color>
 
     <color name="cream">#EADDCB</color>
     <color name="lightCream">#FDF6EB</color>

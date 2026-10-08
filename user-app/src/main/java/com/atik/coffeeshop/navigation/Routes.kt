@@ -16,7 +16,17 @@ sealed class Routes(val route: String) {
     data object Profile : Routes(route = "profile_screen")
     data object Details : Routes(route = "details_screen")
 
-    // ---- Auth graph ----
+    // --- Auth graph ---
     data object Login : Routes(route = "login_screen")
     data object Register : Routes(route = "signup_screen")
+
+    // --- Profile graph ---
+    data object Settings : Routes(route = "settings_screen")
+    data object Location : Routes(route = "location_screen")
+    data object Payment : Routes(route = "payment_screen")
+    data object History : Routes(route = "order_history_screen")
+    data object Notification : Routes(route = "notification_screen")
+    data object EditProfile : Routes(route = "edit_profile_screen")
+
+
 }

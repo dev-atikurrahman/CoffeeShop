@@ -60,7 +60,7 @@ fun AuthField(
     val brownColor = colorResource(R.color.darkBrown)
     val grayColor = colorResource(R.color.gray)
     val black = colorResource(R.color.black)
-    val error = colorResource(R.color.error)
+    val error = colorResource(R.color.errorColor)
 
     val clearIcon = Icons.Rounded.Clear
     val visibility = Icons.Rounded.Visibility

@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="splash_background">#FFFFFF</color>
+    <color name="profileBg">#F5F5F5</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="errorColor">#FFFF0000</color>
 
     <color name="cream">#EADDCB</color>
     <color name="lightCream">#FDF6EB</color>
     <color name="green">#064C3E</color>
     <color name="lightBrown">#F3CE94</color>
+    <color name="lightBrownShade100">#32F3CE94</color>
     <color name="indicator">#26E1C9A2</color>
     <color name="lightGray">#313131</color>
+    <color name="textGray">#FF757575</color>
+    <color name="textDark">#FF1A1A1A</color>
+    <color name="dividerGray">#FFEEEEEE</color>
     <color name="darkBrown">#7E4616</color>
 
     <color name="gradient1">#D6E7FF</color>

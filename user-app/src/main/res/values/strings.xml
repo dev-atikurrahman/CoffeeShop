@@ -27,8 +27,20 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="accept_terms">I accept the Terms &amp; Conditions</string>
     <string name="repeat_password_hint">Repeat password</string>
-    <string name="loading_message">Loading your coffee shop...</string>
+    <string name="loading_message">Loading your coffee shop…</string>
     <string name="have_account">একাউন্ট আছে? Login</string>
     <string name="no_account">একাউন্ট নেই? Register</string>
+
+    <!--  Profile Screen resources  -->
+    <string name="profile_setting">Profile Setting</string>
+    <string name="location">Location</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="order_history">Order History</string>
+    <string name="language">Language</string>
+    <string name="notification">Notification</string>
+    <string name="log_out">Log Out</string>
+    <string name="edit_profile">Edit profile</string>
+    <string name="cancel">Cancel</string>
+    <string name="are_confirm_to_logged_out">Are confirm to logged out</string>
 
 </resources>

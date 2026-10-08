@@ -90,6 +90,11 @@ private object TextStyles {
         fontWeight = FontWeight.Normal,
         fontFamily = Poppins
     )
+    val menu = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Medium,
+        fontFamily = Poppins
+    )
 
     // Hint/placeholder-adjacent text — same scale as caption
     val hint = TextStyle(
@@ -292,6 +297,24 @@ fun CaptionText(
         text = text,
         modifier = modifier,
         style = TextStyles.caption,
+        color = color,
+        maxLines = maxLines,
+        overflow = overflow
+    )
+}
+
+@Composable
+fun MenuText(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = colorResource(R.color.lightGray),
+    maxLines: Int = Int.MAX_VALUE,
+    overflow: TextOverflow = TextOverflow.Ellipsis
+) {
+    Text(
+        text = text,
+        modifier = modifier,
+        style = TextStyles.menu,
         color = color,
         maxLines = maxLines,
         overflow = overflow

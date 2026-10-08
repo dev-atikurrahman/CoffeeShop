@@ -12,11 +12,18 @@ import androidx.navigation.navigation
 import com.atik.coffeeshop.core.defaultEnterTransition
 import com.atik.coffeeshop.core.defaultExitTransition
 import com.atik.coffeeshop.features.details.presentation.DetailsScreen
+import com.atik.coffeeshop.features.edit_profile.presentation.EditProfileScreen
 import com.atik.coffeeshop.features.home.cart.presentation.CartScreen
 import com.atik.coffeeshop.features.home.explore.presentation.ExploreScreen
 import com.atik.coffeeshop.features.home.explore.presentation.SharedViewModel
 import com.atik.coffeeshop.features.home.favorite.presentation.FavoriteScreen
-import com.atik.coffeeshop.features.home.profile.presentation.ProfileScreen
+import com.atik.coffeeshop.features.home.profile.domain.model.ProfileDestination
+import com.atik.coffeeshop.features.home.profile.presentation.ProfileRoot
+import com.atik.coffeeshop.features.location.presentation.LocationScreen
+import com.atik.coffeeshop.features.order_history.presentation.OrderHistoryScreen
+import com.atik.coffeeshop.features.payment.presentation.PaymentScreen
+import com.atik.coffeeshop.features.settings.presentation.ProfileSettingsScreen
+import com.atik.coffeeshop.navigation.AUTH_GRAPH_ROUTE
 import com.atik.coffeeshop.navigation.HOME_GRAPH_ROUTE
 import com.atik.coffeeshop.navigation.Routes
 
@@ -44,7 +51,47 @@ fun NavGraphBuilder.homeNavGraph(
 
         composable(Routes.Cart.route) { CartScreen() }
         composable(Routes.Favorite.route) { FavoriteScreen() }
-        composable(Routes.Profile.route) { ProfileScreen() }
+
+        composable(Routes.Profile.route) {
+            ProfileRoot(
+                onNavigate = { destination ->
+                    val route = when (destination) {
+                        ProfileDestination.Settings -> Routes.Settings.route
+                        ProfileDestination.Location -> Routes.Location.route
+                        ProfileDestination.Payment -> Routes.Payment.route
+                        ProfileDestination.History -> Routes.History.route
+                        ProfileDestination.Notification -> Routes.Notification.route
+                        ProfileDestination.EditProfile -> Routes.EditProfile.route
+                    }
+                    navController.navigate(route)
+                },
+                onLoggedOut = {
+                    navController.navigate(AUTH_GRAPH_ROUTE) {
+                        popUpTo(HOME_GRAPH_ROUTE) { inclusive = true }
+                        launchSingleTop = true
+                    }
+                }
+            )
+        }
+
+        composable(route = Routes.EditProfile.route) {
+            EditProfileScreen(onBackClick = { navController.popBackStack() })
+        }
+        composable(route = Routes.Settings.route) {
+            ProfileSettingsScreen(onBackClick = { navController.popBackStack() })
+        }
+        composable(route = Routes.Location.route) {
+            LocationScreen(onBackClick = { navController.popBackStack() })
+        }
+        composable(route = Routes.Payment.route) {
+            PaymentScreen(onBackClick = { navController.popBackStack() })
+        }
+        composable(route = Routes.History.route) {
+            OrderHistoryScreen(onBackClick = { navController.popBackStack() })
+        }
+        composable(route = Routes.Notification.route) {
+            ProfileSettingsScreen(onBackClick = { navController.popBackStack() })
+        }
 
         composable(
             route = Routes.Details.route,

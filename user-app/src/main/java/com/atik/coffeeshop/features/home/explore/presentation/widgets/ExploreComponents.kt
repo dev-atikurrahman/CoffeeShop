@@ -52,7 +52,7 @@ import com.atik.coffeeshop.features.home.explore.data.models.Category
 import com.atik.coffeeshop.features.home.explore.data.models.ItemsModel
 import com.atik.coffeeshop.ui.components.HintText
 import com.atik.coffeeshop.ui.components.TitleText
-import com.atik.crashcourse.features.screens.explore.data.models.BannerModel
+import com.atik.coffeeshop.features.home.explore.data.models.BannerModel
 import kotlin.math.abs
 
 

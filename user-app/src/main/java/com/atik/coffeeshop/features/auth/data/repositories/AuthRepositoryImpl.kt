@@ -70,7 +70,6 @@ class AuthRepositoryImpl(
         }
     }
 
-
     private fun parseError(response: Response<*>): ApiException {
         val body = runCatching {
             json.decodeFromString<ErrorBodyDto>(response.errorBody()?.string().orEmpty())

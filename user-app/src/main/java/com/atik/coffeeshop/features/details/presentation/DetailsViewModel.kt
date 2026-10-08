@@ -1,4 +1,4 @@
-package com.atik.crashcourse.features.details.presentation
+package com.atik.coffeeshop.features.details.presentation
 
 import androidx.lifecycle.ViewModel
 import com.atik.coffeeshop.features.details.presentation.widget.CoffeeSize

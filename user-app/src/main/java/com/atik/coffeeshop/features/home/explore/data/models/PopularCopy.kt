@@ -1,4 +1,4 @@
-package com.atik.crashcourse.features.screens.explore.data.models
+package com.atik.coffeeshop.features.home.explore.data.models
 
 data class PopularCopy(
     val id: Int,

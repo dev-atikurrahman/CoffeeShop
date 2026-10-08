@@ -2,7 +2,7 @@ package com.atik.coffeeshop.features.home.explore.data.datasources
 
 import com.atik.coffeeshop.features.home.explore.data.models.Category
 import com.atik.coffeeshop.features.home.explore.data.models.ItemsModel
-import com.atik.crashcourse.features.screens.explore.data.models.BannerModel
+import com.atik.coffeeshop.features.home.explore.data.models.BannerModel
 
 object DummyData {
 

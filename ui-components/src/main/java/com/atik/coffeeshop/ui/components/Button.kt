@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -84,6 +85,36 @@ fun AuthButton(
             .height(56.dp)
     ) {
         ButtonText(text = text, color = currentContentColor)
+    }
+}
+
+@Composable
+fun AppButton1(
+    text: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    containerColor: Color = colorResource(R.color.black),
+    contentColor: Color = colorResource(R.color.white),
+    shape: Shape = AuthBtnShape,
+    contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
+) {
+    val currentContentColor = if (enabled) contentColor else contentColor.copy(alpha = 0.6f)
+
+    TextButton(
+        onClick = onClick,
+        enabled = enabled,
+        shape = shape,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = containerColor,
+            contentColor = contentColor,
+            disabledContainerColor = containerColor.copy(alpha = 0.5f),
+            disabledContentColor = contentColor.copy(alpha = 0.6f),
+        ),
+        contentPadding = contentPadding,
+        modifier = modifier.height(36.dp)
+    ) {
+        CaptionText(text = text, color = currentContentColor)
     }
 }
 

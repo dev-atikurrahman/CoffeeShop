@@ -27,7 +27,7 @@ fun AppCheckBox(
 ) {
     val whiteColor = colorResource(R.color.white)
     val grayColor = colorResource(R.color.gray)
-    val errorColor = colorResource(R.color.error)
+    val errorColor = colorResource(R.color.errorColor)
     Row(
         modifier = modifier.clickable(
             interactionSource = remember { MutableInteractionSource() },
