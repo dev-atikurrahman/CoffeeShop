@@ -24,6 +24,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -31,6 +32,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.atik.coffeeshop.R
 import com.atik.coffeeshop.features.auth.presentation.login.LoginViewModel.Companion.AUTH_TAG
 import com.atik.coffeeshop.features.explore.presentation.SharedViewModel
 import com.atik.coffeeshop.features.onboarding.presentation.OnboardingScreen
@@ -100,7 +102,7 @@ fun SplashNavHost(
                     )
                 },
                 contentWindowInsets = WindowInsets.safeDrawing,
-                containerColor = Color.Transparent
+                containerColor = colorResource(R.color.white)
             ) {innerPadding ->
                 NavHost(
                     navController = navController,

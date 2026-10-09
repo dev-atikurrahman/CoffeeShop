@@ -1,5 +1,6 @@
 package com.atik.coffeeshop.features.auth.presentation.register
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -78,7 +79,7 @@ fun RegisterScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .authGradientBackground()
+            .background(colorResource(R.color.white))
     ) {
         LoadingOverlay(
             isLoading = isLoading,
@@ -88,8 +89,7 @@ fun RegisterScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 24.dp)
-                    .verticalScroll(scrollState)
-                    .windowInsetsPadding(WindowInsets.safeDrawing),
+                    .verticalScroll(scrollState),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {

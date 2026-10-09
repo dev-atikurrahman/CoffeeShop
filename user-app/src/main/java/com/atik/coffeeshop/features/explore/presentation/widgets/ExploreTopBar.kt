@@ -30,12 +30,13 @@ import com.atik.coffeeshop.ui.components.HeadingText
 @Composable
 fun ExploreTopBar(
     userName: String,
+    imageUrl: String?,
     onNotificationClick: () -> Unit,
 ) {
 
     var isLoading by remember { mutableStateOf(true) }
     var isError by remember { mutableStateOf(false) }
-    val imageUrl = userName.firstOrNull()
+    val imageUrl = imageUrl?.firstOrNull()
 
     Row(
         modifier = Modifier

@@ -62,7 +62,7 @@ class LoginViewModel(
             passwordError = passwordResult.errorMessage,
             generalError = null
         )
-        if (!emailResult.successful || !passwordResult.successful) return
+        if (hasError) return
 
         viewModelScope.launch {
             _isLoading.value = true

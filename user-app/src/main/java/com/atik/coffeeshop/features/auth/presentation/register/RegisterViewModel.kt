@@ -74,6 +74,7 @@ class RegisterViewModel(
         val termsResult = validateTerms.execute(state.acceptedTerms)
 
         val hasError = listOf(
+            nameResult,
             emailResult,
             passwordResult,
             repeatedPasswordResult,

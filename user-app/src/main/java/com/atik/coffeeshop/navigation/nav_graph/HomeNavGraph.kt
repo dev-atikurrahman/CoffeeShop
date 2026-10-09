@@ -44,7 +44,9 @@ fun NavGraphBuilder.homeNavGraph(
                     onItemClick = { item ->
                         sharedViewModel.selectItem(item)
                         navController.navigate(Routes.Details.route)
-                    }, animatedVisibilityScope = this@composable
+                    },
+
+                    animatedVisibilityScope = this@composable
                 )
             }
         }

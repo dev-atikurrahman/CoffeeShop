@@ -97,10 +97,8 @@ fun ProfileScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(colorResource(R.color.profileBg))
             .verticalScroll(rememberScrollState())
-            .padding(horizontal = 16.dp)
-            .windowInsetsPadding(WindowInsets.safeDrawing),
+            .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         when {
@@ -163,7 +161,7 @@ fun ProfileMenuCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(colorResource(R.color.white))
+            .background(colorResource(R.color.profileBg))
     ) {
         items.forEachIndexed { index, item ->
             ProfileMenuItem(
