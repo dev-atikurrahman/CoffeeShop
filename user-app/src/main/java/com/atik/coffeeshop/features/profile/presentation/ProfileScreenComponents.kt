@@ -45,6 +45,7 @@ import com.atik.coffeeshop.ui.components.AppButton1
 import com.atik.coffeeshop.ui.components.CaptionText
 import com.atik.coffeeshop.ui.components.MenuText
 import com.atik.coffeeshop.ui.components.TitleText
+import com.atik.coffeeshop.ui.theme.ThemeMode
 
 
 @Composable
@@ -201,6 +202,50 @@ fun LanguageDialog(
         text = {
             Column(Modifier.selectableGroup()) {
                 languages.forEach { (code, label) ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .selectable(
+                                selected = code == selected,
+                                role = Role.RadioButton
+                            ) { onSelect(code) }
+                            .padding(vertical = 12.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(selected = code == selected, onClick = null)
+                        HorizontalSpacer(size = 12.dp)
+                        Text(label)
+                    }
+                }
+            }
+        },
+        confirmButton = {},
+        dismissButton = { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) } }
+    )
+}
+
+@Composable
+fun ThemeDialog(
+    selected: ThemeMode,
+    onSelect: (ThemeMode) -> Unit,
+    onDismiss: () -> Unit
+) {
+    val options = listOf(
+        ThemeMode.SYSTEM to "System default",
+        ThemeMode.LIGHT to "Light",
+        ThemeMode.DARK to "Dark",
+    )
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            TitleText(
+                stringResource(R.string.theme),
+                color = colorResource(R.color.textDark)
+            )
+        },
+        text = {
+            Column(Modifier.selectableGroup()) {
+                options.forEach { (code, label) ->
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()

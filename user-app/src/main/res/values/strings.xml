@@ -42,5 +42,6 @@
     <string name="edit_profile">Edit profile</string>
     <string name="cancel">Cancel</string>
     <string name="are_confirm_to_logged_out">Are confirm to logged out</string>
+    <string name="theme">Theme</string>
 
 </resources>

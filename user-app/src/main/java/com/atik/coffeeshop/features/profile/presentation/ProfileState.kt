@@ -8,6 +8,7 @@ data class ProfileUiState(
     val email: String = "",
     val imageUrl: String? = null,
     val selectedLanguage: String = "bn",
+    val selectedTheme: String = "system",
     val isLoading: Boolean = true,
     val error: String? = null,
     val dialog: ProfileDialog? = null
@@ -15,5 +16,6 @@ data class ProfileUiState(
 
 sealed interface ProfileDialog {
     data object Language : ProfileDialog
+    data object Theme : ProfileDialog
     data object LogoutConfirm : ProfileDialog
 }

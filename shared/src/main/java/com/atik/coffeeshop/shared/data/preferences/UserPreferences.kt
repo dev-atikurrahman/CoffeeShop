@@ -1,5 +1,6 @@
 package com.atik.coffeeshop.shared.data.preferences
 
+import com.atik.coffeeshop.ui.theme.ThemeMode
 import kotlinx.coroutines.flow.Flow
 
 interface UserPreferences {
@@ -11,4 +12,7 @@ interface UserPreferences {
     suspend fun saveSession(token: String, rememberMe: Boolean = true)
     suspend fun clearSession()
     suspend fun clearSessionIfNotRemembered()
+
+    val themeMode: Flow<ThemeMode>
+    suspend fun setThemeMode(mode: ThemeMode)
 }

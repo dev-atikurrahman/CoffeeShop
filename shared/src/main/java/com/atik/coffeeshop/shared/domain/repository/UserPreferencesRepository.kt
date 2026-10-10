@@ -1,3 +1,0 @@
-package com.atik.coffeeshop.shared.domain.repository
-
-interface UserPreferencesRepository

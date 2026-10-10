@@ -19,6 +19,7 @@ import androidx.compose.material.icons.automirrored.rounded.Logout
 import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.CreditCard
+import androidx.compose.material.icons.rounded.DarkMode
 import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.NotificationsNone
@@ -60,6 +61,9 @@ private val profileMenuItems = listOf(
     ),
     ProfileMenuItemUi(
         ProfileMenuAction.Notification, Icons.Rounded.NotificationsNone, R.string.notification
+    ),
+    ProfileMenuItemUi(
+        ProfileMenuAction.Notification, Icons.Rounded.DarkMode, R.string.theme
     ),
     ProfileMenuItemUi(
         ProfileMenuAction.Logout,
@@ -137,6 +141,11 @@ fun ProfileScreen(
     }
 
     when (state.dialog) {
+
+        ProfileDialog.Theme -> ThemeDialog(
+            selected = ,
+            onSelect = { onAction(ProfileAction.ThemeSelected(code = )) },
+            onDismiss = { onAction(ProfileAction.DismissDialog) })
 
         ProfileDialog.Language -> LanguageDialog(
             selected = state.selectedLanguage,

@@ -24,6 +24,11 @@ class ProfileViewModel(
 
     init {
         loadProfile()
+        viewModelScope.launch {
+            userPreferences.themeMode.collect { mode ->
+                _state.update { it.copy(selectedTheme = mode) }
+            }
+        }
     }
 
     private fun loadProfile() {
@@ -69,9 +74,16 @@ class ProfileViewModel(
                 ProfileMenuAction.Payment -> navigate(ProfileDestination.Payment)
                 ProfileMenuAction.History -> navigate(ProfileDestination.History)
                 ProfileMenuAction.Notification -> navigate(ProfileDestination.Notification)
+                ProfileMenuAction.Theme -> showDialog(ProfileDialog.Theme)
                 ProfileMenuAction.Language -> showDialog(ProfileDialog.Language)
                 ProfileMenuAction.Logout -> showDialog(ProfileDialog.LogoutConfirm)
             }
+
+            is ProfileAction.ThemeSelected -> viewModelScope.launch {
+                userPreferences.setThemeMode(action.mode)
+                _state.update { it.copy(dialog = null) }
+            }
+
 
             is ProfileAction.LanguageSelected -> _state.update {
                 it.copy(selectedLanguage = action.code, dialog = null)

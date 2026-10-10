@@ -24,6 +24,7 @@ import com.atik.coffeeshop.R
 import com.atik.coffeeshop.ui.components.CaptionText
 import com.atik.coffeeshop.ui.components.OnboardingButton
 import com.atik.coffeeshop.ui.components.OnboardingHeading
+import com.atik.coffeeshop.ui.theme.AppTheme
 
 @Composable
 fun OnboardingScreen(
@@ -32,7 +33,7 @@ fun OnboardingScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(R.color.lightCream))
+            .background(AppTheme.colors.background)
             .padding(horizontal = 24.dp)
             .windowInsetsPadding(WindowInsets.safeDrawing),
         horizontalAlignment = Alignment.CenterHorizontally
