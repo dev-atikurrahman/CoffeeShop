@@ -18,6 +18,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -29,7 +30,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
@@ -74,14 +74,14 @@ fun ProfileHeader(
 
             TitleText(
                 text = name,
-                color = colorResource(R.color.black),
+                color = MaterialTheme.colorScheme.onBackground,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
 
             CaptionText(
                 text = email,
-                color = colorResource(R.color.textDark),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1
             )
 
@@ -89,7 +89,6 @@ fun ProfileHeader(
             AppButton1(
                 text = stringResource(R.string.edit_profile),
                 onClick = onEditProfileClick,
-                containerColor = colorResource(R.color.darkBrown),
                 modifier = Modifier.width(130.dp)
             )
         }
@@ -129,9 +128,10 @@ fun ProfileMenuItem(
     modifier: Modifier = Modifier,
     style: ProfileMenuStyle = ProfileMenuStyle.Default
 ) {
+    val cs = MaterialTheme.colorScheme
     val isDestructive = style == ProfileMenuStyle.Destructive
-    val iconTint = colorResource(if (isDestructive) R.color.errorColor else R.color.darkBrown)
-    val textColor = colorResource(if (isDestructive) R.color.errorColor else R.color.textDark)
+    val iconTint = if (isDestructive) cs.error else cs.primary
+    val textColor = if (isDestructive) cs.error else MaterialTheme.colorScheme.onSurface
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -145,7 +145,7 @@ fun ProfileMenuItem(
             modifier = modifier
                 .size(46.dp)
                 .clip(CircleShape)
-                .background(colorResource(R.color.lightBrownShade100)),
+                .background(cs.secondaryContainer),
             contentAlignment = Alignment.Center
         ) {
             Icon(
@@ -165,7 +165,7 @@ fun ProfileMenuItem(
             Icon(
                 imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
                 contentDescription = null,
-                tint = colorResource(R.color.textGray),
+                tint = iconTint,
                 modifier = modifier.size(20.dp)
             )
         }
@@ -196,7 +196,7 @@ fun LanguageDialog(
         title = {
             TitleText(
                 stringResource(R.string.language),
-                color = colorResource(R.color.textDark)
+                color = MaterialTheme.colorScheme.onSurface
             )
         },
         text = {
@@ -240,7 +240,7 @@ fun ThemeDialog(
         title = {
             TitleText(
                 stringResource(R.string.theme),
-                color = colorResource(R.color.textDark)
+                color = MaterialTheme.colorScheme.onSurface
             )
         },
         text = {

@@ -1,6 +1,7 @@
 package com.atik.coffeeshop.features.profile.presentation
 
 import androidx.compose.runtime.Immutable
+import com.atik.coffeeshop.ui.theme.ThemeMode
 
 @Immutable
 data class ProfileUiState(
@@ -8,7 +9,7 @@ data class ProfileUiState(
     val email: String = "",
     val imageUrl: String? = null,
     val selectedLanguage: String = "bn",
-    val selectedTheme: String = "system",
+    val selectedTheme: ThemeMode = ThemeMode.SYSTEM,
     val isLoading: Boolean = true,
     val error: String? = null,
     val dialog: ProfileDialog? = null

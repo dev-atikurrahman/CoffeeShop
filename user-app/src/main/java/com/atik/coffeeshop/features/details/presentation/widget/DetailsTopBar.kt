@@ -16,6 +16,7 @@ import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,14 +43,14 @@ fun DetailsTopBar(
             onClick = onBackClick,
             modifier = Modifier
                 .clip(RoundedCornerShape(30.dp))
-                .background(colorResource(R.color.cream))
+                .background(MaterialTheme.colorScheme.secondaryContainer)
                 .clickable {}
         ) {
             Icon(
                 Icons.Rounded.ArrowBackIosNew,
                 contentDescription = "Go back",
                 modifier = Modifier.size(24.dp),
-                tint = Color.Black
+                tint = MaterialTheme.colorScheme.onSecondaryContainer
             )
         }
 
@@ -57,7 +58,7 @@ fun DetailsTopBar(
         Spacer(modifier = Modifier.width(8.dp))
         TitleText(
             text = "Back", modifier = Modifier.weight(1f),
-            color = colorResource(R.color.black)
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Box(

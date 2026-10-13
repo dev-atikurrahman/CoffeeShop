@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +25,6 @@ import com.atik.coffeeshop.R
 import com.atik.coffeeshop.ui.components.CaptionText
 import com.atik.coffeeshop.ui.components.OnboardingButton
 import com.atik.coffeeshop.ui.components.OnboardingHeading
-import com.atik.coffeeshop.ui.theme.AppTheme
 
 @Composable
 fun OnboardingScreen(
@@ -33,7 +33,7 @@ fun OnboardingScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(AppTheme.colors.background)
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 24.dp)
             .windowInsetsPadding(WindowInsets.safeDrawing),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -57,13 +57,13 @@ fun OnboardingScreen(
         ) {
             OnboardingHeading(
                 text = stringResource(R.string.coffee_made_easy),
-                color = colorResource(R.color.black)
+                color = MaterialTheme.colorScheme.onBackground
             )
 
             Spacer(modifier = Modifier.height(12.dp))
             CaptionText(
                 text = stringResource(R.string.order_your_favorite_),
-                color = colorResource(R.color.black),
+                color = MaterialTheme.colorScheme.onBackground,
                 maxLines = 2
             )
 
@@ -71,10 +71,9 @@ fun OnboardingScreen(
             OnboardingButton(
                 text = stringResource(R.string.get_started),
                 onClick = onGetStarted,
-                containerColor = colorResource(R.color.lightBrown),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+                modifier = Modifier.fillMaxWidth().height(56.dp)
             )
         }
     }

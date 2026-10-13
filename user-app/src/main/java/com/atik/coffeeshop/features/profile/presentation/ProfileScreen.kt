@@ -4,13 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -24,6 +21,7 @@ import androidx.compose.material.icons.rounded.History
 import androidx.compose.material.icons.rounded.Language
 import androidx.compose.material.icons.rounded.NotificationsNone
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -32,7 +30,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -119,7 +116,7 @@ fun ProfileScreen(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                CaptionText(text = state.error, color = colorResource(R.color.errorColor))
+                CaptionText(text = state.error, color = MaterialTheme.colorScheme.error)
                 TextButton(onClick = { onAction(ProfileAction.Retry) }) { Text("Retry") }
             }
 
@@ -143,8 +140,8 @@ fun ProfileScreen(
     when (state.dialog) {
 
         ProfileDialog.Theme -> ThemeDialog(
-            selected = ,
-            onSelect = { onAction(ProfileAction.ThemeSelected(code = )) },
+            selected = state.selectedTheme,
+            onSelect = { onAction(ProfileAction.ThemeSelected(it)) },
             onDismiss = { onAction(ProfileAction.DismissDialog) })
 
         ProfileDialog.Language -> LanguageDialog(
@@ -170,7 +167,7 @@ fun ProfileMenuCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(colorResource(R.color.profileBg))
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
     ) {
         items.forEachIndexed { index, item ->
             ProfileMenuItem(
@@ -179,7 +176,7 @@ fun ProfileMenuCard(
                 style = item.style,
                 onClick = { onItemClick(item.action) })
             if (index < items.lastIndex) {
-                HorizontalDivider(color = colorResource(R.color.dividerGray))
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
             }
         }
     }

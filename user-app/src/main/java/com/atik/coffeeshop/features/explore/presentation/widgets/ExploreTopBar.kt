@@ -5,13 +5,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -20,12 +26,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.atik.coffeeshop.R
-import com.atik.coffeeshop.ui.components.HeadingText
 
 @Composable
 fun ExploreTopBar(
@@ -41,6 +45,7 @@ fun ExploreTopBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .background(MaterialTheme.colorScheme.surfaceContainerHigh)
             .height(64.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -74,16 +79,12 @@ fun ExploreTopBar(
 
         Spacer(Modifier.width(12.dp))
 
-        HeadingText(
-            text = userName,
-            modifier = Modifier.weight(1f)
-        )
 
         Box(
             modifier = Modifier
                 .size(44.dp)
                 .clip(RoundedCornerShape(30.dp))
-                .background(colorResource(R.color.darkBrown))
+                .background(MaterialTheme.colorScheme.primary)
                 .clickable { onNotificationClick() },
             contentAlignment = Alignment.Center
         ) {
@@ -94,4 +95,25 @@ fun ExploreTopBar(
             )
         }
     }
+}
+
+@Composable
+fun AppBarTop(
+    title: @Composable () -> Unit,
+    subtitle: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    navigationIcon: @Composable () -> Unit = {},
+    actions: @Composable RowScope.() -> Unit = {},
+    windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
+    colors: TopAppBarColors = TopAppBarDefaults.topAppBarColors(),
+
+    ) {
+    TopAppBar(
+        title = title,
+        subtitle = subtitle,
+        navigationIcon = {},
+        windowInsets = windowInsets,
+        colors = colors,
+        modifier = modifier.background(MaterialTheme.colorScheme.surfaceContainerHigh)
+    )
 }

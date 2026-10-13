@@ -22,6 +22,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Add
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -68,7 +69,7 @@ fun SharedTransitionScope.CopyItem(
                 .wrapContentHeight()
                 .align(Alignment.BottomCenter)
                 .clip(RoundedCornerShape(18.dp))
-                .background(colorResource(id = R.color.lightBrown))
+                .background(MaterialTheme.colorScheme.primaryContainer)
                 .clickable { onItemClick() }
 
         ) {
@@ -83,7 +84,7 @@ fun SharedTransitionScope.CopyItem(
                         rememberSharedContentState(key = "title/${item.id}"),
                         animatedVisibilityScope = animatedVisibilityScope
                     ),
-                color = colorResource(R.color.black)
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -91,7 +92,7 @@ fun SharedTransitionScope.CopyItem(
             CaptionText(
                 text = item.description,
                 modifier = Modifier.padding(horizontal = 8.dp),
-                color = colorResource(R.color.lightGray),
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
                 maxLines = 2
             )
 
@@ -108,21 +109,21 @@ fun SharedTransitionScope.CopyItem(
                 ) {
                 PriceText(
                     text = "$${item.price}",
-                    color = colorResource(R.color.black)
+                    color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
 
                 Box(
                     modifier = Modifier
                         .size(36.dp)
                         .clip(RoundedCornerShape(30.dp))
-                        .background(colorResource(id = R.color.green))
+                        .background(MaterialTheme.colorScheme.primary)
                         .clickable { onAddClick() },
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Rounded.Add,
                         contentDescription = "Add to cart",
-                        tint = colorResource(id = R.color.white),
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(24.dp)
                     )
                 }

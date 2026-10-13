@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,15 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.atik.coffeeshop.ui.R
 
 
 private val ButtonShape = RoundedCornerShape(percent = 100)
 private val AuthBtnShape = RoundedCornerShape(percent = 25)
-
 
 @Composable
 fun OnboardingButton(
@@ -35,7 +33,7 @@ fun OnboardingButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     containerColor: Color,
-    contentColor: Color = Color.White,
+    contentColor: Color,
     shape: Shape = ButtonShape,
     contentPadding: PaddingValues = PaddingValues(horizontal = 28.dp, vertical = 12.dp)
 ) {
@@ -52,7 +50,7 @@ fun OnboardingButton(
         contentPadding = contentPadding,
         modifier = modifier,
     ) {
-        ButtonText(text = text, color = colorResource(R.color.black))
+        ButtonText(text = text, color = contentColor)
     }
 }
 
@@ -62,8 +60,8 @@ fun AuthButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    containerColor: Color = colorResource(R.color.black),
-    contentColor: Color = colorResource(R.color.white),
+    containerColor: Color = MaterialTheme.colorScheme.primary,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     shape: Shape = AuthBtnShape,
     contentPadding: PaddingValues = PaddingValues(horizontal = 28.dp, vertical = 12.dp)
 ) {
@@ -94,8 +92,8 @@ fun AppButton1(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    containerColor: Color = colorResource(R.color.black),
-    contentColor: Color = colorResource(R.color.white),
+    containerColor: Color = MaterialTheme.colorScheme.primary,
+    contentColor: Color = MaterialTheme.colorScheme.onPrimary,
     shape: Shape = AuthBtnShape,
     contentPadding: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 8.dp)
 ) {
@@ -129,7 +127,7 @@ fun SocialIconButton(
         modifier = modifier
             .size(56.dp)
             .clip(ButtonShape)
-            .background(colorResource(R.color.lightCream))
+            .background(MaterialTheme.colorScheme.surfaceContainer)
             .clickable { onClick() },
         contentAlignment = Alignment.Center
     ) {

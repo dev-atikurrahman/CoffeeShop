@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -102,13 +103,12 @@ fun SplashNavHost(
                     )
                 },
                 contentWindowInsets = WindowInsets.safeDrawing,
-                containerColor = colorResource(R.color.white)
-            ) {innerPadding ->
+                containerColor = MaterialTheme.colorScheme.background
+            ) {
                 NavHost(
                     navController = navController,
                     startDestination = currentResolveStart,
                     route = SPLASH_ROOT_ROUTE,
-                    modifier = Modifier.padding(innerPadding)
                 ) {
                     composable(Routes.Onboarding.route) {
                         OnboardingScreen(

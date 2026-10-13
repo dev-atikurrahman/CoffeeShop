@@ -1,10 +1,10 @@
 package com.atik.coffeeshop.ui.components
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -137,7 +137,7 @@ fun OnboardingHeading(
 fun AuthHeadingText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = colorResource(R.color.black),
+    color: Color = MaterialTheme.colorScheme.onSurface,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
@@ -156,7 +156,7 @@ fun AuthText(
     text: String,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Center,
-    color: Color = colorResource(R.color.lightGray),
+    color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
@@ -176,7 +176,7 @@ fun AuthSectionTitleText(
     text: String,
     modifier: Modifier = Modifier,
     textAlign: TextAlign = TextAlign.Center,
-    color: Color = colorResource(R.color.black),
+    color: Color = MaterialTheme.colorScheme.onSurface,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {
@@ -289,7 +289,7 @@ fun PriceText(
 fun CaptionText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = colorResource(R.color.lightGray),
+    color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Ellipsis
 ) {
@@ -307,7 +307,7 @@ fun CaptionText(
 fun MenuText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = colorResource(R.color.lightGray),
+    color: Color = MaterialTheme.colorScheme.onSurface,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Ellipsis
 ) {
@@ -325,7 +325,7 @@ fun MenuText(
 fun HintText(
     text: String,
     modifier: Modifier = Modifier,
-    color: Color = colorResource(R.color.gray),
+    color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     maxLines: Int = Int.MAX_VALUE,
     overflow: TextOverflow = TextOverflow.Clip
 ) {

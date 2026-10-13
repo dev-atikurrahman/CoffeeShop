@@ -28,6 +28,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.rounded.FilterList
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -91,7 +92,7 @@ fun TopAppBarSection() {
             modifier = Modifier
                 .size(44.dp)
                 .clip(RoundedCornerShape(30.dp))
-                .background(color = colorResource(R.color.darkBrown)),
+                .background(MaterialTheme.colorScheme.primary),
             contentAlignment = Alignment.Center
         ) {
             Image(
@@ -120,7 +121,7 @@ fun SearchBarSection() {
             singleLine = true,
             textStyle = TextStyle(
                 fontSize = 16.sp,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.onSurface
             ),
             modifier = Modifier
                 .weight(1f),
@@ -129,14 +130,14 @@ fun SearchBarSection() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .clip(RoundedCornerShape(30.dp))
-                        .background(color = colorResource(id = R.color.cream))
+                        .background(MaterialTheme.colorScheme.surfaceContainerHigh)
                         .padding(horizontal = 16.dp, vertical = 12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
                         imageVector = Icons.Default.Search,
                         contentDescription = null,
-                        tint = colorResource(id = R.color.darkBrown),
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(24.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
@@ -161,14 +162,14 @@ fun SearchBarSection() {
             modifier = Modifier
                 .size(44.dp)
                 .clip(RoundedCornerShape(12.dp))
-                .background(colorResource(id = R.color.cream))
+                .background(MaterialTheme.colorScheme.surfaceContainer)
                 .clickable { },
             contentAlignment = Alignment.Center
         ) {
             Icon(
                 imageVector = Icons.Rounded.FilterList,
                 contentDescription = null,
-                tint = colorResource(id = R.color.darkBrown),
+                tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(22.dp)
             )
         }
@@ -180,7 +181,7 @@ fun CategorySection(categories: List<Category>) {
     Column {
         TitleText(
             text = "Category",
-            color = colorResource(R.color.black)
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         Spacer(modifier = Modifier.height(8.dp))
@@ -291,7 +292,7 @@ fun SharedTransitionScope.PopularCopySection(
     ) {
         TitleText(
             text = "Popular Coffees",
-            color = colorResource(R.color.black)
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         LazyRow(

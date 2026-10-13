@@ -18,11 +18,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.rounded.AlternateEmail
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -47,7 +49,7 @@ fun AppLogoSection() {
     Box(
         modifier = Modifier
             .clip(shape)
-            .background(colorResource(R.color.white)),
+            .background(Color.White),
         contentAlignment = Alignment.Center,
     ) {
         Image(
@@ -169,7 +171,7 @@ fun RememberAndForgotSection(
 
         ButtonText(
             text = stringResource(R.string.forgot_password),
-            color = colorResource(R.color.black),
+            color = MaterialTheme.colorScheme.onBackground,
             maxLines = 1,
             modifier = Modifier.clickable(
                 interactionSource = remember { MutableInteractionSource() },

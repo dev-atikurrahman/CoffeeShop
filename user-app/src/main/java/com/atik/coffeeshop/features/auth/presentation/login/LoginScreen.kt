@@ -8,11 +8,11 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -23,7 +23,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
@@ -41,7 +40,6 @@ import com.atik.coffeeshop.ui.components.AppSnackbarHost
 import com.atik.coffeeshop.ui.components.AuthButton
 import com.atik.coffeeshop.ui.components.AuthSectionDivider
 import com.atik.coffeeshop.ui.components.LoadingOverlay
-import com.atik.coffeeshop.ui.theme.authGradientBackground
 import com.atik.coffeeshop.ui.utils.rememberDebouncedOnClick
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -80,7 +78,7 @@ fun LoginScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(colorResource(R.color.white))
+            .background(MaterialTheme.colorScheme.background)
     ) {
         LoadingOverlay(
             isLoading = isLoading, message = stringResource(R.string.loading_message)
@@ -128,9 +126,7 @@ fun LoginScreen(
                 AuthButton(
                     text = if (isLoading) "..." else stringResource(R.string.login),
                     enabled = !isLoading,
-                    onClick = submit,
-                    containerColor = colorResource(R.color.green),
-                    contentColor = colorResource(R.color.white)
+                    onClick = submit
                 )
 
                 VerticalSpacer(size = 24.dp)

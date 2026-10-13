@@ -1,6 +1,7 @@
 package com.atik.coffeeshop.ui.components
 
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -19,9 +20,9 @@ fun AppSnackbarHost(
         Snackbar(
             snackbarData = data,
             shape = RoundedCornerShape(12.dp),
-            containerColor = colorResource(R.color.darkBrown),
-            contentColor = colorResource(R.color.white),
-            actionColor = colorResource(R.color.lightBrown),
+            containerColor = MaterialTheme.colorScheme.inverseSurface,
+            contentColor = MaterialTheme.colorScheme.inverseOnSurface,
+            actionColor = MaterialTheme.colorScheme.inversePrimary,
         )
     }
 }

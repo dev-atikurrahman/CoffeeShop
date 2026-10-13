@@ -12,25 +12,24 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.LoadingIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.atik.coffeeshop.ui.R
 
 
 @OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AppLoadingIndicator(
     modifier: Modifier = Modifier,
-    color: Color = colorResource(R.color.darkBrown),
+    color: Color = MaterialTheme.colorScheme.primary,
     containerColor: Color = Color.Transparent,
     size: Dp
 ) {
@@ -47,7 +46,7 @@ fun LoadingOverlay(
     isLoading: Boolean,
     modifier: Modifier = Modifier,
     message: String? = null,
-    scrimColor: Color = Color.Black.copy(alpha = 0.35f),
+    scrimColor: Color = MaterialTheme.colorScheme.primary.copy(alpha = 0.35f),
     content: @Composable () -> Unit
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -68,7 +67,7 @@ fun LoadingOverlay(
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     LoadingIndicator(
                         modifier = Modifier.size(56.dp),
-                        colorResource(R.color.darkBrown),
+                        color = MaterialTheme.colorScheme.primary,
                     )
 
                     Spacer(modifier = Modifier.height(28.dp))
@@ -77,7 +76,7 @@ fun LoadingOverlay(
                             text = message,
                             style = TextStyle(
                                 fontSize = 14.sp,
-                                color = colorResource(R.color.darkBrown)
+                                color = MaterialTheme.colorScheme.primary
                             )
                         )
                     }

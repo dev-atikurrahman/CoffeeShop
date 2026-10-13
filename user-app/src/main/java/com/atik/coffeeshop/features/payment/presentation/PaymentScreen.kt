@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,13 +23,13 @@ fun PaymentScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(colorResource(R.color.profileBg))
+            .background(MaterialTheme.colorScheme.background)
             .windowInsetsPadding(WindowInsets.safeDrawing),
 
     ) {
         TitleText(
             text = "This is Payment",
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onBackground
         )
     }
 

@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -21,13 +22,13 @@ fun AppCheckBox(
     onCheckedChange: (Boolean) -> Unit,
     label: String,
     modifier: Modifier = Modifier,
-    checkedColor: Color = colorResource(R.color.darkBrown),
-    uncheckedColor: Color = colorResource(R.color.gray),
+    checkedColor: Color = MaterialTheme.colorScheme.primary,
+    uncheckedColor: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     errorMessage: String? = null
 ) {
-    val whiteColor = colorResource(R.color.white)
-    val grayColor = colorResource(R.color.gray)
-    val errorColor = colorResource(R.color.errorColor)
+    val whiteColor = MaterialTheme.colorScheme.onPrimary
+    val grayColor = MaterialTheme.colorScheme.onSurfaceVariant
+    val errorColor = MaterialTheme.colorScheme.error
     Row(
         modifier = modifier.clickable(
             interactionSource = remember { MutableInteractionSource() },

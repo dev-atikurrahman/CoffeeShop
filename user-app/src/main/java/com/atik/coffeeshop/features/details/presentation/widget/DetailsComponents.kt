@@ -33,6 +33,7 @@ import androidx.compose.material.icons.rounded.Remove
 import androidx.compose.material.icons.rounded.StarRate
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -80,7 +81,7 @@ fun SharedTransitionScope.DetailsImageSection(
             .fillMaxWidth()
             .shadow(elevation = 6.dp, shape = RoundedCornerShape(18.dp))
             .clip(RoundedCornerShape(18.dp))
-            .background(colorResource(R.color.cream))
+            .background(MaterialTheme.colorScheme.secondaryContainer)
     ) {
         Box(
             modifier = Modifier
@@ -130,7 +131,7 @@ fun SharedTransitionScope.DetailsImageSection(
                 .padding(vertical = 12.dp),
             style = TextStyle(
                 fontSize = 22.sp,
-                fontWeight = FontWeight.SemiBold, color = Color.Black
+                fontWeight = FontWeight.SemiBold, color = MaterialTheme.colorScheme.onBackground
             ),
             textAlign = TextAlign.Center
         )
@@ -145,7 +146,7 @@ enum class CoffeeSize { Small, Medium, Large }
 fun CoffeeSizeSelectorSection(
     selectedSize: CoffeeSize, onSizeSelected: (CoffeeSize) -> Unit
 ) {
-    TitleText(text = "Coffee Size", color = colorResource(R.color.black))
+    TitleText(text = "Coffee Size", color = MaterialTheme.colorScheme.onBackground)
     Spacer(modifier = Modifier.height(8.dp))
 
     //var selectedSize by remember { mutableStateOf(CoffeeSize.Small) }
@@ -157,7 +158,7 @@ fun CoffeeSizeSelectorSection(
             .height(38.dp)
             .padding(horizontal = 16.dp)
             .clip(RoundedCornerShape(30.dp))
-            .background(colorResource(R.color.cream))
+            .background(MaterialTheme.colorScheme.secondaryContainer)
 
     ) {
         val itemWidth = maxWidth / sizes.size
@@ -176,14 +177,14 @@ fun CoffeeSizeSelectorSection(
                 .width(itemWidth)
                 .fillMaxHeight()
                 .clip(RoundedCornerShape(30.dp))
-                .background(colorResource(R.color.darkBrown))
+                .background(MaterialTheme.colorScheme.primary)
         )
 
         Row(modifier = Modifier.fillMaxSize()) {
             sizes.forEach { size ->
                 val isSelected = selectedSize == size
                 val textColor by animateColorAsState(
-                    targetValue = if (isSelected) Color.White else Color.Black,
+                    targetValue = if (isSelected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurface,
                     animationSpec = tween(durationMillis = 300),
                     label = "textColor"
                 )
@@ -236,14 +237,14 @@ fun QuantityAndDetailsSection(
             Row(
                 modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically
             ) {
-                TitleText(text = "Qty", color = colorResource(R.color.black))
+                TitleText(text = "Qty", color = MaterialTheme.colorScheme.onBackground)
                 Spacer(modifier = Modifier.width(12.dp))
 
                 // Increase, Decrease Btn
                 Row(
                     modifier = Modifier
                         .clip(RoundedCornerShape(30.dp))
-                        .background(colorResource(R.color.cream)),
+                        .background(MaterialTheme.colorScheme.secondaryContainer),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
@@ -257,7 +258,7 @@ fun QuantityAndDetailsSection(
                         Icon(
                             imageVector = Icons.Rounded.Remove,
                             contentDescription = "Decrease quantity",
-                            tint = Color.Black,
+                            tint = MaterialTheme.colorScheme.secondaryContainer,
                             modifier = Modifier.size(22.dp)
                         )
                     }
@@ -267,7 +268,7 @@ fun QuantityAndDetailsSection(
                         style = TextStyle(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.onSecondaryContainer
                         )
                     )
 
@@ -277,7 +278,7 @@ fun QuantityAndDetailsSection(
                         Icon(
                             imageVector = Icons.Rounded.Add,
                             contentDescription = "Increase quantity",
-                            tint = Color.Black,
+                            tint = MaterialTheme.colorScheme.secondaryContainer,
                             modifier = Modifier.size(22.dp)
                         )
                     }
@@ -289,24 +290,24 @@ fun QuantityAndDetailsSection(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                PriceText(text = "4.5", color = colorResource(R.color.black))
+                PriceText(text = "4.5", color = MaterialTheme.colorScheme.onBackground)
                 Icon(
                     imageVector = Icons.Rounded.StarRate,
                     contentDescription = "Star Icon",
-                    tint = colorResource(R.color.darkBrown)
+                    tint = MaterialTheme.colorScheme.primary
                 )
             }
         }
 
         Spacer(modifier = Modifier.height(18.dp))
 
-        TitleText(text = "Description", color = colorResource(R.color.black))
+        TitleText(text = "Description", color = MaterialTheme.colorScheme.onBackground)
 
         Spacer(modifier = Modifier.height(8.dp))
 
         CaptionText(
             text = item.description,
-            color = colorResource(R.color.black),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 6
         )
     }
@@ -328,12 +329,11 @@ fun AddToCartAndPriceSection(
         AuthButton(
             text = "Add to Cart",
             onClick = {},
-            containerColor = colorResource(R.color.green)
         )
 
         PriceText(
             text = "$${item.price}",
-            color = colorResource(R.color.black)
+            color = MaterialTheme.colorScheme.onBackground
         )
 
 

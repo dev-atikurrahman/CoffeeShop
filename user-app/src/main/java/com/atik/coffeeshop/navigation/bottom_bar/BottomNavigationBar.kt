@@ -14,6 +14,7 @@ import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.material3.Badge
 import androidx.compose.material3.BadgedBox
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -22,8 +23,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -65,12 +64,14 @@ fun BottomNavigationBar(
 
     )
 
+    val cs = MaterialTheme.colorScheme
+
     val navigationItemColors = NavigationBarItemDefaults.colors(
-        selectedIconColor = Color.White,
-        selectedTextColor = Color.White,
-        unselectedIconColor = colorResource(R.color.lightCream),
-        unselectedTextColor = colorResource(R.color.lightCream),
-        indicatorColor = colorResource(R.color.indicator),
+        selectedIconColor = cs.onBackground,
+        selectedTextColor = cs.onSecondaryContainer,
+        unselectedIconColor = cs.onSecondaryContainer.copy(alpha = 0.7f),
+        unselectedTextColor = cs.onSecondaryContainer.copy(alpha = 0.7f),
+        indicatorColor = cs.secondaryContainer,
     )
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -85,7 +86,7 @@ fun BottomNavigationBar(
                     topEnd = 28.dp
                 )
             ),
-        containerColor = colorResource(id = R.color.darkBrown),
+        containerColor = cs.surfaceContainerHigh,
         tonalElevation = 0.dp,
     ) {
         items.forEachIndexed { index, item ->

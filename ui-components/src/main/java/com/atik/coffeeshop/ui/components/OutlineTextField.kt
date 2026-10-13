@@ -10,6 +10,7 @@ import androidx.compose.material.icons.rounded.Visibility
 import androidx.compose.material.icons.rounded.VisibilityOff
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -21,14 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.autofill.ContentType
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.semantics.contentType
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.atik.coffeeshop.ui.R
 
 enum class EndIconMode {
     NONE,
@@ -57,10 +56,11 @@ fun AuthField(
 
     val isNotEmpty = value.isNotEmpty()
 
-    val brownColor = colorResource(R.color.darkBrown)
-    val grayColor = colorResource(R.color.gray)
-    val black = colorResource(R.color.black)
-    val error = colorResource(R.color.errorColor)
+    val cs = MaterialTheme.colorScheme
+    val brownColor = cs.primary
+    val grayColor = cs.onSurfaceVariant
+    val black = cs.onSurface
+    val error = cs.error
 
     val clearIcon = Icons.Rounded.Clear
     val visibility = Icons.Rounded.Visibility
